@@ -1,0 +1,8 @@
+fastapi
+requests
+open-cv
+numpy
+cmake
+dlib
+websocket
+'uvicorn[standard]'

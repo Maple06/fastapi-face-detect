@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Live Cam</title>
+    </head>
+    <body>
+        <img id="frame" src="">
+        <div id="textArea"></div>
+        <script>
+            let ws = new WebSocket("ws://localhost:8000/pic");
+
+            let image = document.getElementById("frame");
+            image.onload = function(){
+                URL.revokeObjectURL(this.src); // release the blob URL once the image is loaded
+            } 
+            ws.onmessage = function(event) {
+                if (typeof event.data === 'string') 
+                    document.getElementById("textArea").innerHTML = event.data;
+                else
+                    image.src = URL.createObjectURL(event.data);
+            };
+        </script>
+        <form action="/takepic" method="POST"><button>Take Picture</button></form>
+    </body>
+</html>
